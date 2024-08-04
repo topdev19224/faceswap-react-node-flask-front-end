@@ -5,12 +5,8 @@
 /.pnp
 .pnp.js
 
-front-end
 # testing
 /coverage
-
-public/assets/animation.mp4
-public/assets/animation.gif
 
 # production
 /build
