@@ -4,6 +4,7 @@ import progressing from "../../assets/svgs/progressing.svg"
 import Tweet from "../elements/tweet"
 import Mask from "../layout/mask"
 import axios from "axios"
+import { API_ENDPOINT } from "../utils/consts"
 
 const Main = () => {
   const [stocks, setStocks] = useState([])
@@ -16,10 +17,11 @@ const Main = () => {
   const [isGenerate, setIsGenerate] = useState(false)
 
   const getStockList = useCallback(async () => {
-    let res = await axios.get('/api/v1/stock/list')
+    let res = await axios.get(API_ENDPOINT + '/api/v1/stock/list')
 
     if (res.data.code === 200) {
-      setStocks([...res.data.files])
+      const files = res.data.files.map((file) => API_ENDPOINT + file)
+      setStocks([...files])
     }
   }, [])
 
@@ -52,7 +54,7 @@ const Main = () => {
       formData.append('file', file)
 
       try {
-        const res = await axios.post('/api/v1/upload', formData, {
+        const res = await axios.post(API_ENDPOINT + '/api/v1/upload', formData, {
           headers: {
             'Content-Type': 'multipart/form-data'
           }
@@ -88,7 +90,7 @@ const Main = () => {
 
       const formData = new FormData()
       formData.append('file', sourceImage.files[0])
-      let res = await axios.post('/api/v1/upload', formData, {
+      let res = await axios.post(API_ENDPOINT + '/api/v1/upload', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -99,7 +101,7 @@ const Main = () => {
         let sourceImageType = sourceImage[sourceImage.length - 2]
         let sourceImageName = sourceImage[sourceImage.length - 1]
 
-        res = await axios.post('/api/v1/swap/image', {
+        res = await axios.post(API_ENDPOINT + '/api/v1/swap/image', {
           sourceImage: { type: sourceImageType, name: sourceImageName },
           targetImage: { type: targetImageType, name: targetImageName },
         }, {
@@ -108,7 +110,7 @@ const Main = () => {
           }
         })
         if (res.data.code === 200) {
-          setSwappedImageSrc(res.data.file)
+          setSwappedImageSrc(API_ENDPOINT + res.data.file)
           setIsShare(true)
         }
       }
