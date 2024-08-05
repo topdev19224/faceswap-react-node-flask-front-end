@@ -29,6 +29,11 @@ const Main = () => {
     getStockList()
   }, [getStockList])
 
+  const changeStock = (key) => {
+    setSelectedStock(key)
+    setSwappedImageSrc('')
+  }
+
   const handleFileChangeImage = (e) => {
     const file = e.target.files[0]
 
@@ -62,7 +67,7 @@ const Main = () => {
 
         if (res.data.code === 200) {
           let tempStocks = stocks
-          tempStocks.splice(0, 0, res.data.file)
+          tempStocks.splice(0, 0, API_ENDPOINT + res.data.file)
           setStocks([...tempStocks])
           setSelectedStock(0)
           setSwappedImageSrc('')
@@ -199,7 +204,7 @@ const Main = () => {
                     {
                       stocks.map((stock, key) => {
                         return (
-                          <Stock key={key} func={() => setSelectedStock(key)} className={key === selectedStock ? 'bg-gray-50 max-[720px]:w-[90px] max-[720px]:h-[90px] w-[120px] h-[120px] rounded-lg cursor-pointer active' : 'bg-gray-50 max-[720px]:w-[90px] max-[720px]:h-[90px] w-[120px] h-[120px] rounded-lg cursor-pointer'} src={`${stock}`}></Stock>
+                          <Stock key={key} func={() => changeStock(key)} className={key === selectedStock ? 'bg-gray-50 max-[720px]:w-[90px] max-[720px]:h-[90px] w-[120px] h-[120px] rounded-lg cursor-pointer active' : 'bg-gray-50 max-[720px]:w-[90px] max-[720px]:h-[90px] w-[120px] h-[120px] rounded-lg cursor-pointer'} src={`${stock}`}></Stock>
                         )
                       })
                     }
