@@ -159,20 +159,14 @@ const Main = () => {
                     <div className="w-4 h-4 mb-8 right-arrow"></div>
                     <div className="original text-center">
                       <div className='original-image max-[720px]:w-[140px] max-[720px]:h-[140px] w-[90px] h-[90px] mb-3 bg-gray-300 rounded-xl'>
-                        {
-                          stocks.length && stocks[0] &&
-                          <img className="w-full h-full object-cover rounded-xl" src={`${stocks[selectedStock]}`} alt="original" />
-                        }
+                        <img className="w-full h-full object-cover rounded-xl" src={stocks.length && stocks[0] && `${stocks[selectedStock]}`} alt="original" />
                       </div>
                       <span>Original</span>
                     </div>
                   </div>
                   <div className='min-[720px]:block hidden swap-right w-[250px] h-[250px] bg-gray-100 rounded-2xl'
                   >
-                    {
-                      stocks.length && stocks[0] &&
-                      <img className="w-full h-full object-cover rounded-2xl" src={swappedImageSrc ? swappedImageSrc : `${stocks[selectedStock]}`} alt="original" />
-                    }
+                    <img className="w-full h-full object-cover rounded-2xl" src={swappedImageSrc ? swappedImageSrc : stocks.length && stocks[0] && `${stocks[selectedStock]}`} alt="original" />
                   </div>
                 </div>
                 <div onClick={customImageSrc ? generateImage : () => { }} className={customImageSrc && !isGenerate ? "relative mx-auto max-[720px]:w-[86%] w-[629px] min-[720px]:min-w-[629px] swap-button active bg-[#d8d8d8] p-7 max-[720px]:py-4 rounded-lg text-center text-white" : "relative max-[720px]:w-[86%] mx-auto min-[720px]:min-w-[629px] w-[629px] swap-button bg-[#d8d8d8] p-7 max-[720px]:py-4 rounded-lg text-center text-white"}>
